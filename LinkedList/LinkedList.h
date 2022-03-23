@@ -1,0 +1,8 @@
+//
+// Created by Gianfranco on 21/03/2022.
+//
+
+#ifndef LINKEDLIST_LINKEDLIST_H
+#define LINKEDLIST_LINKEDLIST_H
+
+#endif //LINKEDLIST_LINKEDLIST_H

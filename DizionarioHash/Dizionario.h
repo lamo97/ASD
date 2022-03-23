@@ -1,0 +1,8 @@
+//
+// Created by Gianfranco on 22/03/2022.
+//
+
+#ifndef DIZIONARIOHASH_DIZIONARIO_H
+#define DIZIONARIOHASH_DIZIONARIO_H
+
+#endif //DIZIONARIOHASH_DIZIONARIO_H
