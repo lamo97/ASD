@@ -30,7 +30,7 @@ public:
         //scorre l'intera lista in quella posizione, nel caso ci siano stati conflitti all'inserimento
         for (int i = 0; i < table[position].getSize(); i++) {
             //confronta la chiave in posizione con quella data come parametro
-            if (key == table[position].readValue(i).key)
+            if (key == table[position].leggiValore(i).key)
                 return true;
         }
         return false;
@@ -42,7 +42,7 @@ public:
             cout << "La chiave e gia nel dizionario!" << endl;
         } else {
             int position = hashFunction(toAdd.key);
-            table[position].add(toAdd);
+            table[position].inserisci(toAdd);
         }
     }
 
@@ -55,7 +55,7 @@ public:
             cout << "La chiave e gia nel dizionario!" << endl;
         } else {
             int position = hashFunction(toAdd.key);
-            table[position].add(toAdd);
+            table[position].inserisci(toAdd);
         }
     }
 
@@ -64,8 +64,8 @@ public:
             int position = hashFunction(toDelete.key);
             for (int i = 0; i < table[position].getSize(); i++) {
                 //confronta la chiave in posizione con quella dell'elemento da cancellare
-                if (toDelete.key == table[position].readValue(i).key) {
-                    table[position].cancel(i);
+                if (toDelete.key == table[position].leggiValore(i).key) {
+                    table[position].cancella(i);
                     return;
                 }
             }
@@ -79,8 +79,8 @@ public:
             int position = hashFunction(key);
             for (int i = 0; i < table[position].getSize(); i++) {
                 //confronta la chiave in posizione con quella dell'elemento da cancellare
-                if (key == table[position].readValue(i).key) {
-                    table[position].cancel(i);
+                if (key == table[position].leggiValore(i).key) {
+                    table[position].cancella(i);
                     return;
                 }
             }
@@ -106,8 +106,8 @@ public:
         if (appartiene(key) == true) {
             int position = hashFunction(key);
             for (int i = 0; i < table[position].getSize(); i++) {
-                if (key == table[position].readValue(i).key)
-                    return table[position].readValue(i);
+                if (key == table[position].leggiValore(i).key)
+                    return table[position].leggiValore(i);
             }
         } else {
             cout << "La chiave non e presente nel dizionario!" << endl;
@@ -118,8 +118,8 @@ public:
         if (appartiene(key) == true) {
             int position = hashFunction(key);
             for (int i = 0; i < table[position].getSize(); i++) {
-                if (key == table[position].readValue(i).key)
-                    table[position].readValue(i).value = value;
+                if (key == table[position].leggiValore(i).key)
+                    table[position].leggiValore(i).value = value;
             }
         } else {
             cout << "La chiave non e presente nel dizionario!" << endl;
@@ -129,7 +129,7 @@ public:
     void stampaDizionario() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < table[i].getSize(); j++) {
-                cout << "Chiave: " << table[i].readValue(j).key << " Valore: " << table[i].readValue(j).value << endl;
+                cout << "Chiave: " << table[i].leggiValore(j).key << " Valore: " << table[i].leggiValore(j).value << endl;
             }
         }
         cout << "---" << endl;
