@@ -36,7 +36,21 @@ public:
         return false;
     }
 
+    //versione del metodo di inserimento per l'aggiunta di bucket con il passaggio di buckets
     void inserisci(Bucket<K, V> toAdd) {
+        if (appartiene(toAdd.key) == true) {
+            cout << "La chiave e gia nel dizionario!" << endl;
+        } else {
+            int position = hashFunction(toAdd.key);
+            table[position].add(toAdd);
+        }
+    }
+
+    //versione del metodo di inserimento per l'aggiunta di bucket con il passaggio di chiave,valore
+    void inserisci(K key, V value) {
+        Bucket<K, V> toAdd;
+        toAdd.key = key;
+        toAdd.value = value;
         if (appartiene(toAdd.key) == true) {
             cout << "La chiave e gia nel dizionario!" << endl;
         } else {
@@ -51,6 +65,21 @@ public:
             for (int i = 0; i < table[position].getSize(); i++) {
                 //confronta la chiave in posizione con quella dell'elemento da cancellare
                 if (toDelete.key == table[position].readValue(i).key) {
+                    table[position].cancel(i);
+                    return;
+                }
+            }
+        } else {
+            cout << "L'elemento non e presente nel dizionario!" << endl;
+        }
+    }
+
+    void cancella(K key) {
+        if (appartiene(key) == true) {
+            int position = hashFunction(key);
+            for (int i = 0; i < table[position].getSize(); i++) {
+                //confronta la chiave in posizione con quella dell'elemento da cancellare
+                if (key == table[position].readValue(i).key) {
                     table[position].cancel(i);
                     return;
                 }
