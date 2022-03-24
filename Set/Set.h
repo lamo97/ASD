@@ -136,6 +136,10 @@ public:
             return false;
     }
 
+    int getSize(){
+        return size;
+    }
+
     void stampaInsieme() {
         elements.stampaValori();
     }
