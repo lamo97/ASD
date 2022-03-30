@@ -28,8 +28,9 @@ public:
     void inserisciFiglio(TNode<T>* node, TNode<T>* toAdd);
     void inserisciFiglio(TNode<T>* node, T data);
     //Tree<T> inserisciPrimoSottoalbero(TNode<T>* node, Tree<T> subTree);
-    //Tree<T> inserisciSottoalbero(TNode<T>* node, Tree<T> subTree);
-    //void cancellaSottoalbero(TNode<T>* node);
+    void inserisciSottoalbero(TNode<T>* node, Tree<T> subTree);
+    void cancellaSottoalbero(TNode<T>* node);
+    int altezza(TNode<T> *node);
     bool isEmpty();
     bool isLeaf(TNode<T>* node);
     bool isLastBrother(TNode<T>* node);

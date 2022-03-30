@@ -21,6 +21,21 @@ int main() {
     t1.stampaPrevisita(t1.getRoot());
     cout << "Postvisita: " << endl;
     t1.stampaPostvisita(t1.getRoot());
-    cout << "Invisita: " << endl;
-    t1.stampaInvisita(t1.getRoot());
+    //cout << "Invisita: " << endl;
+    //t1.stampaInvisita(t1.getRoot());
+    t1.cancellaSottoalbero(n11);
+
+    cout << "Altezza: " << t1.altezza(t1.getRoot()) << endl;
+
+    cout << "Rimozione: " << endl;
+    t1.stampaPostvisita(t1.getRoot());
+
+    cout << "Inserimento sottoalbero: " << endl;
+
+    auto *t100 = new TNode<int>(50);
+    Tree<int> t2;
+    t2.inserisciRadice(t100);
+    t2.inserisciFiglio(t2.getRoot(), 200);
+    t1.inserisciSottoalbero(t1.getRoot(), t2);
+    t1.stampaPostvisita(t1.getRoot());
 }

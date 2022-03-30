@@ -32,19 +32,19 @@ void Tree<T>::inserisciFiglio(TNode<T> *node, T data) {
 
 template<typename T>
 void Tree<T>::stampaPrevisita(TNode<T> *node) {
-   /* cout << node->data << endl;
+    /* cout << node->data << endl;
 
-    if (isLeaf(node) == false) {
-        for (int i = 0; i < node->childs.getSize(); i++) {
-            stampaPrevisita(node->childs.leggiValore(i));
-                node = node->childs.leggiValore(i+1);
-        }
-        stampaPrevisita(node);
-    }*/
+     if (isLeaf(node) == false) {
+         for (int i = 0; i < node->childs.getSize(); i++) {
+             stampaPrevisita(node->childs.leggiValore(i));
+                 node = node->childs.leggiValore(i+1);
+         }
+         stampaPrevisita(node);
+     }*/
 
     cout << node->data << endl;
-    if(isLeaf(node) == false){
-        for(int i = 0; i< node->childs.getSize(); i++){
+    if (isLeaf(node) == false) {
+        for (int i = 0; i < node->childs.getSize(); i++) {
             stampaPrevisita(node->childs.leggiValore(i));
         }
     }
@@ -53,10 +53,10 @@ void Tree<T>::stampaPrevisita(TNode<T> *node) {
 //da fare
 template<typename T>
 void Tree<T>::stampaPostvisita(TNode<T> *node) {
-    if(isLeaf(node) == true){
+    if (isLeaf(node) == true) {
         cout << node->data << endl;
     } else {
-        for(int i = 0; i< node->childs.getSize(); i++){
+        for (int i = 0; i < node->childs.getSize(); i++) {
             stampaPostvisita(node->childs.leggiValore(i));
 
         }
@@ -66,14 +66,51 @@ void Tree<T>::stampaPostvisita(TNode<T> *node) {
 
 template<typename T>
 void Tree<T>::stampaInvisita(TNode<T> *node) {
-    if(isLeaf(node) == true){
+    if (isLeaf(node) == true) {
         cout << node->data << endl;
     } else {
-        for(int i = 0; i< node->childs.getSize(); i++){
+        for (int i = 0; i < node->childs.getSize(); i++) {
             stampaInvisita(node->childs.leggiValore(i));
             cout << node->data << endl;
         }
 
+    }
+}
+
+
+template<typename T>
+void Tree<T>::inserisciSottoalbero(TNode<T> *node, Tree<T> subTree) {
+    /* node: nodo di tree che verrà usato nella copia di tree
+     * tree: albero al quale viene aggiunto il sottoalbero che viene copiato e NON modificato
+     * subTree: sottoalbero da aggiungere
+     */
+
+    inserisciFiglio(node, subTree.root);
+}
+
+template<typename T>
+void Tree<T>::cancellaSottoalbero(TNode<T> *node) {
+    for (int i = 0; i < node->parent->childs.getSize(); i++) {
+        if (node == (node->parent)->childs.leggiValore(i)) {
+            (node->parent)->childs.cancella(i);
+            return;
+        }
+    }
+
+    cout << "Il nodo non appartiene all'albero!" << endl;
+}
+
+template<typename T>
+int Tree<T>::altezza(TNode<T> *node) {
+    if (isLeaf(node) == true) {
+        return 0;
+    } else {
+        int maxAltezza = 0;
+        for (int i = 0; i < node->childs.getSize(); i++) {
+            maxAltezza = altezza(node->childs.leggiValore(i));
+        }
+
+        return maxAltezza + 1;
     }
 }
 
