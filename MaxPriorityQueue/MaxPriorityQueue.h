@@ -1,5 +1,5 @@
-#ifndef PRIORITYQUEUE_PRIORITYQUEUE_H
-#define PRIORITYQUEUE_PRIORITYQUEUE_H
+#ifndef MAXPRIORITYQUEUE_MAXPRIORITYQUEUE_H
+#define MAXPRIORITYQUEUE_MAXPRIORITYQUEUE_H
 
 #include <iostream>
 
@@ -31,21 +31,21 @@ struct Node {
 };
 
 template<typename T>
-class PriorityQueue {
+class MaxPriorityQueue {
 public:
-    PriorityQueue() {
+    MaxPriorityQueue() {
         size = 0;
         maxSize = 20;
         heap = new Node<T>[maxSize];
     }
 
-    PriorityQueue(int maxSize) {
+    MaxPriorityQueue(int maxSize) {
         size = 0;
         this->maxSize = maxSize;
         heap = new Node<T>[maxSize];
     }
 
-    ~PriorityQueue() {
+    ~MaxPriorityQueue() {
         delete[] heap;
     }
 
@@ -125,7 +125,7 @@ public:
     }
 
     //overloading dell'operatore == per il confronto tra code
-    bool operator==(const PriorityQueue<T> queue) {
+    bool operator==(const MaxPriorityQueue<T> queue) {
         if (this->size == queue.size) {
             for (int i = 1; i < size; i++) {
                 if (this->heap[i].data != queue.heap[i].data && this->heap[i].priority != queue.heap[i].priority)
@@ -181,4 +181,4 @@ private:
 };
 
 
-#endif //PRIORITYQUEUE_PRIORITYQUEUE_H
+#endif //MAXPRIORITYQUEUE_MAXPRIORITYQUEUE_H

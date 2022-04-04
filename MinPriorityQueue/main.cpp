@@ -1,11 +1,11 @@
 #include <iostream>
-#include "PriorityQueue.h"
+#include "MinPriorityQueue.h"
 
 using namespace std;
 
 int main() {
-    PriorityQueue<int> q1;
-    PriorityQueue<int> q2;
+    MinPriorityQueue<int> q1;
+    MinPriorityQueue<int> q2;
 
     if(q1 == q2){
         cout << "si" << endl;
