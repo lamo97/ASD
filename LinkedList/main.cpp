@@ -21,4 +21,22 @@ int main() {
     l2.stampaValori();
     l2.cancella(1);
     l2.stampaValori();
+
+    LinkedList<int> l3;
+    l3.inserisci(10);
+    l3.inserisci(20);
+    l3.inserisci(30,2);
+    l3.inserisci(15,1);
+
+    LinkedList<int> *merged;
+    merged = l.concatena(l3);
+    merged->stampaValori();
+
+    merged->cancella(2);
+    merged->stampaValori();
+
+    for(int i = merged->getSize(); i>=0; i--){
+        merged->cancella(i);
+        merged->stampaValori();
+    }
 }

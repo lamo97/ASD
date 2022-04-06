@@ -147,6 +147,20 @@ public:
         delete temp;
     }
 
+    //concatena due liste
+    LinkedList<T>* concatena(LinkedList<T> l2){
+        LinkedList<T> *merged = new LinkedList<T>();
+        for(int i = 0; i< this->size; i++){
+            merged->inserisci(this->leggiValore(i));
+        }
+
+        for(int i = 0; i< l2.size; i++){
+            merged->inserisci(l2.leggiValore(i));
+        }
+
+        return merged;
+    }
+
     int getSize() {
         return size;
     }
