@@ -97,11 +97,54 @@ int main(){
 	b2.insert("a", 40);
 	b2.insert("b", 12);
 	b2.insert("c", 18);
+    b2.insert("c", 11);
 	b2.insert("d", 55);
 	b2.insert("d", 72);
+    b2.insert("d", 54);
 
-	cout << "Stampa di b2:" << endl;
+	cout << "Stampa preordine di b2:" << endl;
 	b2.preorderPrint(b2.getRoot());
+
+    cout << "Stampa postordine di b2:" << endl;
+    b2.postorderPrint(b2.getRoot());
+
+    cout << "Stampa invisita di b2:" << endl;
+    b2.inorderPrint(b2.getRoot());
+
+    cout << "Profondita di b2:\t" << b2.maxDepth(b2.getRoot()) << endl;
+
+    /*
+    cout << "Eliminazione di 11" << endl;
+    b2.remove(11);
+    b1.preorderPrint(b2.getRoot());
+
+    cout << "Eliminazione di 18" << endl;
+    b2.remove(18);
+    b1.preorderPrint(b2.getRoot());
+
+    cout << "Eliminazione di 30" << endl;
+    b2.remove(30);
+    b1.preorderPrint(b2.getRoot());
+
+    */
+
+    int sum = 0;
+
+    //sum = b1.levelSum(b1.getRoot(), 2);
+    // << "Somma: " << sum << endl;
+
+    sum = b2.levelSum(b2.getRoot(), 3);
+    cout << "Somma: " << sum << endl;
+
+    b2.insert("a", 80);
+
+    sum = b2.levelSum(b2.getRoot(), 4);
+    cout << "Somma: " << sum << endl;
+
+    b2.remove(80);
+
+    sum = b2.levelSum(b2.getRoot(), 3);
+    cout << "Somma: " << sum << endl;
 }
 
 

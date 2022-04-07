@@ -188,19 +188,122 @@ public:
         }
     }
 
+    int maxDepth(Node<T> *node) {
+        if (node == nullptr) {
+            return -1;
+        } else {
+            //profondità del sottoalbero sinistro
+            int leftDepth = maxDepth(node->left);
+            //profondità del sottoalbero destro
+            int rightDepth = maxDepth(node->right);
 
-    void preorderPrint(Node<T> *root) {
-        if (isLeaf(root) == true) {
-            root->printNode();
+            //usa quello maggiore
+            if (leftDepth > rightDepth) {
+                return (leftDepth + 1);
+            } else {
+                return (rightDepth + 1);
+            }
+        }
+    }
+
+    void preorderPrint(Node<T> *node) {
+        if (node == NULL) {
             return;
         }
 
-        root->printNode();
-        if (root->left != nullptr) {
-            preorderPrint(root->left);
+        node->printNode();
+        preorderPrint(node->left);
+        preorderPrint(node->right);
+    }
+
+    //stampa postvisita
+    void postorderPrint(Node<T> *node) {
+        if (node == NULL) {
+            return;
         }
-        if (root->right != nullptr) {
-            preorderPrint(root->right);
+        postorderPrint(node->left);
+        postorderPrint(node->right);
+        node->printNode();
+    }
+
+    //stampa invisita
+    void inorderPrint(Node<T> *node) {
+        if (node == NULL) {
+            return;
+        }
+
+        inorderPrint(node->left);
+        node->printNode();
+        inorderPrint(node->right);
+    }
+
+    //somma i valori delle chiavi fino ad un determinato livello di profondità
+    int levelSum(Node<T> *subRoot, int level) {
+        //controlla che il paramentro "level" non sia maggiore della prfondità effettiva dell'albero
+        if (maxDepth(subRoot) < level) {
+            cout << "La profondita massima dell'albero e inferiore al livello scelto!" << endl;
+            return 0;
+        }
+
+        BST<T> temp;    //copia parziale dell'albero fino ad un determinato livello
+
+
+        int maxSize = maxDepth(getRoot()) * 5;    /* rappresenta la dimensione dell'array che conterrà le chiavi da copiare;
+                                                        * la dimensione è data dalla prfondità*5 perchè sarà leggermente maggiore al
+                                                        * numero massimo di nodi che l'albero binario potrà avere, considerato il livello */
+
+        int *elements = new int[maxSize]();     //copia delle chiavi nell'albero
+        int size = 0;                           //numero effettivo di elementi nell'array che verrà incrementato dalla funzione
+
+        preorderKeysRetrieval(getRoot(), elements, size);   //copia le chiavi visitando l'albero in previsita
+
+        int nElem = 0;
+        Node<T> t;
+
+        while (temp.maxDepth(temp.getRoot()) <= level && nElem < size) {
+            t.key = elements[nElem];    //chiave del nodo da aggiungere alla copia parziale dell'albero
+            t.data = search(elements[nElem],
+                            getRoot())->data; //"data" del nodo da aggiungere alla copia parziale dell'albero
+            temp.insert(t.data, t.key); //inserimento nella copia parziale dell'albero
+
+            /* se con l'aggiunta dell'ultimo elemento si è superato "level"
+            l'ultimo elemento viene rimosso e si interrompe il ciclo*/
+            if (temp.maxDepth(temp.getRoot()) > level) {
+                temp.remove(elements[nElem]);
+                break;
+            }
+
+            nElem++;
+        }
+
+        maxSize = nElem;    //tanti elementi quanti sono stati aggiunti alla copia parziale dell'albero
+        elements = new int[maxSize]();  //riallocazione della memoria per l'array
+
+        //vengono copiate le chiavi dalla copia parziale dell'albero nell'array e viene incrementato size
+        preorderKeysRetrieval(temp.getRoot(), elements, size = 0);
+
+        int sum = 0;
+
+        //somma tutti gli elementi nell'array di chiavi
+        for (int j = 0; j < size; j++) {
+            sum = sum + elements[j];
+        }
+
+        delete[] elements;  //pulizia memoria
+
+        return sum;
+    }
+
+    /* visita l'albero in previsita e memorizza le chiavi nell'array "elements",
+     * memorizzando anche il numero di elementi in "size" */
+    void preorderKeysRetrieval(Node<T> *node, int *elements, int &size) {
+        if (node == NULL) {
+            return;
+        } else {
+            elements[size] = node->key;
+            size++;
+            preorderKeysRetrieval(node->left, elements, size);
+            preorderKeysRetrieval(node->right, elements, size);
         }
     }
 
@@ -219,7 +322,6 @@ public:
                 return false;
         }
     }
-
 
     bool isLeaf(Node<T> *node) {
         if (node->left == nullptr && node->right == nullptr)
@@ -376,7 +478,6 @@ private:
          * funzione di eliminazione sul nodo copiato, ricorsivamente.
          * Tutto questo si ripete fin quando la funzione non ricade nei primi 3 casi.
          */
-
         if (node->left != nullptr && node->right != nullptr) {
             node->data = max(node->left)->data;
             node->key = max(node->left)->key;
