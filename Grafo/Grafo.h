@@ -73,6 +73,7 @@ public:
     bool esisteArco(GNode<T> *from, GNode<T> to);
     //legginodo
     //scrivinodo
+    void stampaDFS(GNode<T> *node, int* visitati = nullptr,bool flag = false);
     void stampaGrafo();
 
 private:

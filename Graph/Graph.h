@@ -1,5 +1,6 @@
 #include <iostream>
 #include "LinkedList.h"
+#include "Queue.h"
 
 struct Edge {
     int destination;
@@ -35,6 +36,12 @@ struct Vertex {
     }
 };
 
+//rappresenta un vertice da visitare per la ricerca
+struct SNode {
+    int id = -1;
+    bool visitato = false;
+};
+
 template<typename T>
 class Graph {
 public:
@@ -50,7 +57,7 @@ public:
 
     void inserisciNodo(Vertex<T> toAdd) {
         if (esisteNodo(toAdd.id) == true) {
-            cout << "Esiste già un nodo con id " << toAdd.id << endl;
+            cout << "Esiste gia un nodo con id " << toAdd.id << endl;
             return;
         }
 
@@ -59,7 +66,7 @@ public:
 
     void inserisciNodo(int id, string label = "", T data = NULL) {
         if (esisteNodo(id) == true) {
-            cout << "Esiste già un nodo con id " << id << endl;
+            cout << "Esiste gia un nodo con id " << id << endl;
             return;
         }
 
@@ -139,6 +146,59 @@ public:
             }
         }
     }
+
+    //wrapper
+    void visitaDFS() {
+        int id = 0;
+        SNode *visitati = new SNode[size];  //array degli elementi da visitare
+
+        //inizializza l'array dei vertici da visitare con i vertici presenti nel grafo
+        for (int i = 0; i < size; i++) {
+            if (vertexArray[i].id != -1)
+                visitati[i].id = vertexArray[i].id;
+        }
+
+        //prende il primo nodo esistente da visitare
+        int i = 0;
+        do {
+            id = vertexArray[i].id;
+            i++;
+        } while (vertexArray[i].id == -1 && i < size);
+
+        cout << "Visita DFS: ";
+
+        visitaDFS(id, visitati);
+        delete[] visitati;
+
+        cout << endl;
+    }
+
+    //wrapper
+    void visitaBFS() {
+        int id = 0;
+        Queue<int> *daVisitare = new Queue<int>();  //coda che contiene i prossimi elementi da visitare, in ordine
+        SNode *visitati = new SNode[size];  //array degli elementi da visitare
+
+        //inizializza l'array dei vertici da visitare con i vertici presenti nel grafo
+        for (int i = 0; i < size; i++) {
+            if (vertexArray[i].id != -1)
+                visitati[i].id = vertexArray[i].id;
+        }
+
+        //prende il primo nodo esistente da visitare
+        int i = 0;
+        do {
+            id = vertexArray[i].id;
+            i++;
+        } while (vertexArray[i].id == -1 && i < size);
+
+        daVisitare->inserisci(id);
+
+        cout << "Visita BFS: ";
+        visitaBFS(id, daVisitare, visitati);
+        cout << endl;
+    }
+
 
     LinkedList<Edge *> adiacenti(int id) {
         if (esisteNodo(id) == false) {
@@ -221,4 +281,50 @@ public:
 private:
     Vertex<T> *vertexArray;
     int size;
+
+    void visitaDFS(int id, SNode *visitati) {
+        cout << id;   //visita il nodo
+        visitati[id].visitato = true;       //segna il nodo come visitato
+
+        //controlla se la lista di adiacenza del nodo esamintato è vuota
+        if (vertexArray[id].edgeList.getSize() > 0) {
+            //se la lista non è vuota seleziona un vicino alla volta fino ad esaurirli
+            for (int i = 0; i < vertexArray[id].edgeList.getSize(); i++) {
+                //controlla che il vicino non sia stato già esaminato in iterazioni precedenti
+                if (visitati[vertexArray[id].edgeList.leggiValore(i)->destination].visitato == false) {
+                    //richiama ricorsivamente la funzione
+                    cout << " -> ";
+                    visitaDFS(vertexArray[id].edgeList.leggiValore(i)->destination, visitati);
+                }
+            }
+        }
+    }
+
+    void visitaBFS(int id, Queue<int> *daVisitare, SNode *visitati) {
+        int tempID = -1;
+        int destID = -1;
+
+        //mentre la coda non è vuota, esegui
+        do {
+            tempID = daVisitare->leggiValore(); //legge il valore dalla testa della coda
+            daVisitare->cancella();             //rimuovi il valore appena letto
+            cout << tempID << " -> ";           //esamina il valore letto
+            visitati[tempID].visitato = true;   //marca come visitato il nodo letto
+
+            //se il nodo visitato ha vicini
+            if (vertexArray[tempID].edgeList.getSize() > 0) {
+                //prendi i vicini fin quando non si esauriscono
+                for (int i = 0; i < vertexArray[tempID].edgeList.getSize(); i++) {
+                    //preleva il vicino dalla lista
+                    destID = vertexArray[tempID].edgeList.leggiValore(i)->destination;
+                    //se il vicino non è stato visitato e non è gia in coda
+                    if (visitati[destID].visitato == false && daVisitare->appartiene(destID) == false) {
+                        daVisitare->inserisci(destID);  //inserisci il vicino in coda
+                    }
+                }
+            }
+        } while (daVisitare->isEmpty() == false);
+
+        cout << "||";
+    }
 };

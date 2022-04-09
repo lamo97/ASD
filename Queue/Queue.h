@@ -1,7 +1,7 @@
 // Implementazione della struttura coda con puntatori
 
-#ifndef CODAPTR_CODAPTR_H
-#define CODAPTR_CODAPTR_H
+#ifndef CODAPTR_QUEUE_H
+#define CODAPTR_QUEUE_H
 
 #include <iostream>
 
@@ -21,15 +21,15 @@ struct Node {
 };
 
 template<typename T>
-class CodaPtr {
+class Queue {
 public:
-    CodaPtr() {
+    Queue() {
         head = nullptr;
         tail = nullptr;
         size = 0;
     }
 
-    ~CodaPtr() = default;
+    ~Queue() = default;
 
     //legge il valore in testa
     T leggiValore() {
@@ -140,4 +140,4 @@ private:
     int size;
 };
 
-#endif //CODAPTR_CODAPTR_H
+#endif //CODAPTR_QUEUE_H

@@ -1,11 +1,11 @@
 #include <iostream>
 #include <typeinfo>
-#include "CodaPtr.h"
+#include "Queue.h"
 
 using namespace std;
 
 int main() {
-    CodaPtr<int> c1;
+    Queue<int> c1;
     c1.inserisci(10);
     c1.inserisci(20);
     c1.inserisci(30);

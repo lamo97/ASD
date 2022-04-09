@@ -161,6 +161,33 @@ LinkedList<GNode<T> *> Grafo<T>::adiacenti(int id) {
 }
 
 template<typename T>
+void Grafo<T>::stampaDFS(GNode<T> *node, int *visitati, bool flag) {
+    if (flag == false) {
+        int *visitati = new int[SIZE](); //array che tiene traccia dei nodi esistenti e se sono stati visitati
+        for (int i = 0; i < SIZE; i++) {
+            //aggiunta dei nodi esistenti all'array dei visitati
+            if (arrayVertici[i].isEmpty() == false) {
+                //se il nodo con id pari all'indice corrente esiste il valore viene settato a 0
+                visitati[i] = 0;
+            } else {
+                //altrimenti viene settato a -1
+                visitati[i] = -1;
+            }
+        }
+    }
+
+    int i = 1;
+    if (node == nullptr) {
+        while(arrayVertici[i].isEmpty() == true)
+        node = arrayVertici[1].
+    }
+
+    cout << node->id
+
+
+}
+
+template<typename T>
 void Grafo<T>::stampaGrafo() {
     cout << "------------------------------------------------------" << endl;
     for (int i = 1; i < SIZE; i++) {
