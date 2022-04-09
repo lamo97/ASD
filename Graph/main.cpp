@@ -68,4 +68,6 @@ int main() {
     g1.visitaDFS();
     g1.visitaBFS();
 
+    g1.stampaGrafo();
+
 }

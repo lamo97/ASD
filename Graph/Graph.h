@@ -4,7 +4,7 @@
 
 struct Edge {
     int destination;
-    int weight;
+    int weight; //di default il peso sarà 1
 
     Edge(int destination, int weight = 1) {
         this->destination = destination;
@@ -195,7 +195,10 @@ public:
         daVisitare->inserisci(id);
 
         cout << "Visita BFS: ";
+
         visitaBFS(id, daVisitare, visitati);
+        delete[] visitati;
+
         cout << endl;
     }
 
@@ -256,7 +259,7 @@ public:
         return true;
     }
 
-    void tmpPrint() {
+    void stampaGrafo() {
         for (int i = 0; i < size; i++) {
             if (vertexArray[i].id != -1) {
                 cout << vertexArray[i].id;
@@ -325,6 +328,6 @@ private:
             }
         } while (daVisitare->isEmpty() == false);
 
-        cout << "||";
+        cout << "|| ";
     }
 };
