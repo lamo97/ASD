@@ -88,6 +88,46 @@ public:
         }
     }
 
+    int profonditaNodo(TNode<T> *toFind) {
+        if (isEmpty() == true) {
+            cout << "L'albero e vuoto!" << endl;
+            return -1;
+        }
+        if (appartiene(toFind) == false) {
+            cout << "Il nodo non si trova nell'albero" << endl;
+            return -1;
+        }
+        int depth = 0;
+
+        TNode<T> *temp = toFind;
+        while (toFind != root) {
+            toFind = toFind->parent;
+            depth++;
+        }
+
+        return depth;
+    }
+
+    //wrapper
+    int profonditaMassima() {
+        int *max = new int();
+        int *curr = new int();
+        *max = 0;
+        profonditaMassima(getRoot(), max, curr);
+        return *max;
+    }
+
+
+    void stampaLivello(TNode<T> *node, int livello) {
+        if (profonditaNodo(node) == livello) {
+            cout << node->data << " ";
+        }
+
+        for (int i = 0; i < node->childs.getSize(); i++) {
+            stampaLivello(node->childs.leggiValore(i), livello);
+        }
+    }
+
     //wrapper
     bool appartiene(TNode<T> *toCheck) {
         if (this->root == nullptr) {
@@ -151,12 +191,94 @@ public:
         }
 
         if (node == root) {
-            cout << "Il nodo è radice e non ha padre!" << endl;
+            cout << "Il nodo e radice e non ha padre!" << endl;
             return nullptr;
         }
 
         return node;
     }
+
+    TNode<T> *getPrimoFiglio(TNode<T> *node) {
+        if (isEmpty()) {
+            cout << "L'albero e vuoto!" << endl;
+            return nullptr;
+        }
+
+        if (appartiene(node) == false) {
+            cout << "Il nodo non e presente nell'albero!" << endl;
+            return nullptr;
+        }
+
+        if (node->childs.getSize() == 0) {
+            cout << "Il nodo non ha figli!" << endl;
+        }
+
+        return node->childs.leggiValore(0);
+    }
+
+    bool isUltimoFratello(TNode<T> *node) {
+        if (isEmpty()) {
+            cout << "L'albero e vuoto!" << endl;
+            return true;
+        }
+
+        if (node == root) {
+            cout << "Il nodo e radice e non ha fratelli!" << endl;
+            return true;
+        }
+
+        if (appartiene(node) == false) {
+            cout << "Il nodo non e presente nell'albero!" << endl;
+            return true;
+        }
+
+        //posizione del nodo di cui si sta cercando il fratello nella lista
+        int position = -1;
+
+        for (int i = 0; i < (node->parent)->childs.getSize(); i++) {
+            if ((node->parent)->childs.leggiValore(i) == node) {
+                position = i;
+                break;
+            }
+        }
+
+        if ((node->parent)->childs.getSize() - 1 == position)
+            return true;
+        else
+            return false;
+    }
+
+    TNode<T> *getProssimoFratello(TNode<T> *node) {
+        if (isEmpty()) {
+            cout << "L'albero e vuoto!" << endl;
+            return nullptr;
+        }
+
+        if (node == root) {
+            cout << "Il nodo e radice e non ha fratelli!" << endl;
+            return nullptr;
+        }
+
+        if (appartiene(node) == false) {
+            cout << "Il nodo non e presente nell'albero!" << endl;
+            return nullptr;
+        }
+
+        if (isUltimoFratello(node) == true) {
+            cout << "Il nodo e l'ultimo figlio!" << endl;
+            return nullptr;
+        }
+
+        //posizione del nodo di cui si sta cercando il fratello nella lista
+        int position = -1;
+
+        for (int i = 0; i < (node->parent)->childs.getSize(); i++) {
+            if ((node->parent)->childs.leggiValore(i) == node) {
+                return (node->parent)->childs.leggiValore(i + 1);
+            }
+        }
+    }
+
 
     //wrapper
     void stampaPrevisita() {
@@ -185,6 +307,16 @@ private:
             for (int i = 0; i < subRoot->childs.getSize(); i++) {
                 appartiene(toCheck, subRoot->childs.leggiValore(i), flag);
             }
+        }
+    }
+
+    void profonditaMassima(TNode<T> *node, int *max, int *curr) {
+        *curr = profonditaNodo(node);
+        if (*max < *curr)
+            *max = *curr;
+
+        for (int i = 0; i < node->childs.getSize(); i++) {
+            profonditaMassima(node->childs.leggiValore(i), max, curr);
         }
     }
 

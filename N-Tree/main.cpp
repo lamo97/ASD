@@ -35,4 +35,40 @@ int main() {
 
     //t1.cancellaNodo(n2);
     //t1.stampaPrevisita();
+
+    cout << "Primo Figlio: " << t1.getPrimoFiglio(r1)->data << endl;
+    cout << "Ultimo Fratello(4): " << t1.isUltimoFratello(n4) << endl;
+    cout << "Ultimo Fratello(3): " << t1.isUltimoFratello(n3) << endl;
+    cout << "Prossimo Fratello(3): " << t1.getProssimoFratello(n3)->data << endl;
+
+
+    TNode<int> *n10 = new TNode<int>(10);
+    t1.inserisciFiglio(n7,n10);
+
+    cout << "Profondita(8): " << t1.profonditaNodo(n8) << endl;
+    cout << "Profondita(7): " << t1.profonditaNodo(n7) << endl;
+    cout << "Profondita(10): " << t1.profonditaNodo(n10) << endl;
+
+    cout << "Stampa per livello(4): ";
+    t1.stampaLivello(t1.getRoot(), 4);
+    cout << endl;
+
+    cout << "Profondita Massima: " << t1.profonditaMassima() << endl;
+    t1.cancellaNodo(n10);
+    cout << "Profondita Massima: " << t1.profonditaMassima() << endl;
+
+    struct Test{
+        int data;
+    };
+
+    NTree<Test*> t2;
+    Test *s1 = new Test();
+    Test *s2 = new Test();
+
+    auto s11 = new TNode<Test*>(s1);
+    TNode<Test*>* s22 = new TNode<Test*>(s2);
+
+    t2.inserisciRadice(s11);
+    t2.inserisciFiglio(s11, s22);
+    t2.stampaPrevisita();
 }

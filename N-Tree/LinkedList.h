@@ -87,7 +87,7 @@ public:
             delete toDelete;
         } else {
             Node<T> *toDelete = getNode(position);
-            getNode(position-1)->next = getNode(position)->next;
+            getNode(position - 1)->next = getNode(position)->next;
             delete toDelete;
         }
 
@@ -148,13 +148,13 @@ public:
     }
 
     //concatena due liste
-    LinkedList<T>* concatena(LinkedList<T> l2){
+    LinkedList<T> *concatena(LinkedList<T> l2) {
         LinkedList<T> *merged = new LinkedList<T>();
-        for(int i = 0; i< this->size; i++){
+        for (int i = 0; i < this->size; i++) {
             merged->inserisci(this->leggiValore(i));
         }
 
-        for(int i = 0; i< l2.size; i++){
+        for (int i = 0; i < l2.size; i++) {
             merged->inserisci(l2.leggiValore(i));
         }
 
