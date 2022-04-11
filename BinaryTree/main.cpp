@@ -55,12 +55,30 @@ int main() {
     test.inserisciNodo(520);
     test.inserisciNodo(530);
     test.stampaInorder(test.getRoot());
-    cout << test.altezza(test.getRoot()) << endl;
+    cout << "Altezza: " << test.altezza(test.getRoot()) << endl;
     cout << "Proprio: ";
     cout << test.proprio(test.getRoot()) << endl;
 
     cout << "Proprio: ";
     cout << b2.proprio(b2.getRoot()) << endl;
+
+    BinaryTree<int> testComp;
+
+    TNode<int> *t0 = new TNode<int>(0);
+    TNode<int> *t1 = new TNode<int>(1);
+    TNode<int> *t2 = new TNode<int>(2);
+    TNode<int> *t3 = new TNode<int>(3);
+    TNode<int> *t4 = new TNode<int>(4);
+
+    testComp.inserisciRadice(t0);
+    testComp.inserisciSinistro(t0, t1);
+    testComp.inserisciDestro(t0,t2);
+    testComp.inserisciSinistro(t1,t3);
+    testComp.inserisciDestro(t1,t4);
+
+    cout << "testComp completo?: " << testComp.isCompleto(testComp.getRoot()) << endl;
+    testComp.cancellaSottoalbero(t2);
+    cout << "testComp completo?: " << testComp.isCompleto(testComp.getRoot()) << endl;
 
 /*
     cout << "Preorder: " << endl;

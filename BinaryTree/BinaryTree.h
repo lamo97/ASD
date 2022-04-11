@@ -53,6 +53,7 @@ public:
     int altezza(TNode<T> *node);
     //wrapper per proprio (private)
     bool proprio(TNode<T> *root); //un albero binario si dice proprio se ogni nodo ha 0 o 2 figli
+    bool isCompleto(TNode<T> *root);
 
     void stampaPreorder(TNode<T> *root);
     void stampaInorder(TNode<T> *root);
@@ -235,6 +236,18 @@ bool BinaryTree<T>::proprio(TNode<T> *node, int d, int level) {
     }
 
     return proprio(node->left, d, level+1) && proprio(node->right, d, level+1);
+}
+
+template <typename T>
+bool BinaryTree<T>::isCompleto(TNode<T> *root){
+    int rightH = altezza(root->left);
+    int leftH = altezza(root->right);
+
+    if(leftH = rightH && proprio(root->left) && proprio(root->right)){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 //wrapper
