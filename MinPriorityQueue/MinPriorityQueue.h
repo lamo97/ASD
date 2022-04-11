@@ -43,9 +43,9 @@ public:
         heap = new Node<T>[maxSize];
     }
 
-    ~MinPriorityQueue() {
+    /*~MinPriorityQueue() {
         delete[] heap;
-    }
+    }*/
 
     void inserisci(Node<T> toAdd) {
         if (size + 1 > maxSize) {

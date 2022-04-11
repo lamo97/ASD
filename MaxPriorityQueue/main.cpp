@@ -11,11 +11,12 @@ int main() {
         cout << "si" << endl;
     }
 
-    Node<int> n1(1,1);
-    Node<int> n2(2,2);
-    Node<int> n3(10,10);
-    Node<int> n4(60,60);
-    Node<int> n5(8,8);
+    QNode<int> n1(1,1);
+    QNode<int> n2(2,2);
+    QNode<int> n3(10,10);
+    QNode<int> n4(60,60);
+    QNode<int> n5(8,8);
+    QNode<int> n7(3,3);
 
 
     q1.inserisci(n1);
@@ -24,11 +25,7 @@ int main() {
     q1.inserisci(n4);
     q1.inserisci(n5);
     q1.inserisci(100,100);
+    q1.inserisci(n7);
 
     q1.stampaCoda();
-    cout << endl;
-
-    q1.rimuovi();
-    q1.stampaCoda();
-
 }
