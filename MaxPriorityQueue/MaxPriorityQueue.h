@@ -131,7 +131,7 @@ public:
     QNode<T> leggiTesta() {
         if (isEmpty() == true) {
             cout << "La coda e vuota!" << endl;
-            QNode<T> temp(-1, -1);
+            QNode<T> temp;
             return temp;
         }
         return heap[1];

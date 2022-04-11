@@ -28,4 +28,15 @@ int main() {
     q1.inserisci(n7);
 
     q1.stampaCoda();
+
+    struct Test{
+        int data;
+    };
+
+    Test t1;
+    t1.data = 5;
+
+    MaxPriorityQueue<Test> q3;
+    q3.inserisci(t1, 5);
+    cout << q3.leggiTesta().data.data << endl;
 }
