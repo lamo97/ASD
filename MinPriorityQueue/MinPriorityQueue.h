@@ -99,27 +99,36 @@ public:
             return;
         }
 
-        heap[1]=heap[size];
+        heap[1] = heap[size];
         size--;
 
         Node<T> temp;
         int i = 0;
         int pos = 1;
 
-        while(heap[pos].priority > heap[2*pos].priority && 2*pos<= size
-        || heap[pos].priority > heap[2*pos+1].priority && 2*pos+1<= size){
+        while (heap[pos].priority > heap[2 * pos].priority && 2 * pos <= size
+               || heap[pos].priority > heap[2 * pos + 1].priority && 2 * pos + 1 <= size) {
             //figlio di sinistra < di quello di destra
-            if(heap[2*pos].priority < heap[2*pos+1].priority){
+            if (heap[2 * pos].priority < heap[2 * pos + 1].priority) {
                 temp = heap[pos];  //copia il vecchio nodo padre
-                heap[pos] = heap[2*pos];    //il nodo padre divente il figlio di sinistra
-                heap[2*pos] = temp; //il figlio di sinistra diventa il vecchio nodo padre
-            } else if(heap[2*pos].priority > heap[2*pos+1].priority){
+                heap[pos] = heap[2 * pos];    //il nodo padre divente il figlio di sinistra
+                heap[2 * pos] = temp; //il figlio di sinistra diventa il vecchio nodo padre
+            } else if (heap[2 * pos].priority > heap[2 * pos + 1].priority) {
                 //figlio di destra < di quello di sinistra
                 temp = heap[pos];  //copia il vecchio nodo padre
-                heap[pos] = heap[2*pos+1];    //il nodo padre divente il figlio di destra
-                heap[2*pos+1] = temp; //il figlio di destra diventa il vecchio nodo padre
+                heap[pos] = heap[2 * pos + 1];    //il nodo padre divente il figlio di destra
+                heap[2 * pos + 1] = temp; //il figlio di destra diventa il vecchio nodo padre
             }
         }
+    }
+
+    Node<T> leggiTesta() {
+        if (isEmpty() == true) {
+            cout << "La coda e vuota!" << endl;
+            Node<T> temp;
+            return temp;
+        }
+        return heap[1];
     }
 
     //overloading dell'operatore == per il confronto tra code
@@ -159,18 +168,39 @@ public:
             return false;
     }
 
-    void stampaCoda() {
+    void stampaHeap() {
         for (int i = 1; i <= size; i++) {
             cout << i << ": Data: " << heap[i].data << "\tPriorita: " << heap[i].priority;
-            if(2*i <= size){
-                cout << "\tLeft: " << 2*i << " ";
+            if (2 * i <= size) {
+                cout << "\tLeft: " << 2 * i << " ";
             }
-            if(2*i+1 <= size){
-                cout << "\tRight: " << 2*i+1;
+            if (2 * i + 1 <= size) {
+                cout << "\tRight: " << 2 * i + 1;
             }
             cout << endl;
         }
     }
+
+
+    //stampa della coda
+    void stampaCoda() {
+        MinPriorityQueue<T> temp;
+        temp.size = this->size;
+
+        for (int i = 1; i <= size; i++) {
+            temp.heap[i] = this->heap[i];
+        }
+
+        int i = 1;
+        while (temp.size > 0) {
+            cout << i << ": " << temp.leggiTesta().data << endl;
+            temp.rimuovi();
+            i++;
+        }
+
+        cout << "-------" << endl;
+    }
+
 
 private:
     Node<T> *heap;

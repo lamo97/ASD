@@ -31,4 +31,10 @@ int main() {
     q1.rimuovi();
     q1.stampaCoda();
 
+    if(q1 == q2){
+        cout << "si" << endl;
+    } else {
+        cout << "no" << endl;
+    }
+
 }
