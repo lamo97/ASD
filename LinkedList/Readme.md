@@ -1,0 +1,3 @@
+# Linked List
+
+Implementazione della struttura “LinkedList”
