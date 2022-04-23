@@ -1,7 +1,5 @@
-// Implementazione della struttura coda con puntatori
-
-#ifndef CODAPTR_QUEUE_H
-#define CODAPTR_QUEUE_H
+#ifndef QUEUE_QUEUE_H
+#define QUEUE_QUEUE_H
 
 #include <iostream>
 
@@ -23,116 +21,23 @@ struct Node {
 template<typename T>
 class Queue {
 public:
-    Queue() {
-        head = nullptr;
-        tail = nullptr;
-        size = 0;
-    }
-
+    Queue();
     ~Queue() = default;
 
-    //legge il valore in testa
-    T leggiValore() {
-        if (isEmpty() == true) {
-            cout << "La coda e vuota!" << endl;
-            return NULL;
-        }
 
-        return head->data;
-    }
+    T leggiValore();    //legge il valore in testa
 
-    void inserisci(T data) {
-        Node<T> *toAdd = new Node<T>(data);
+    void inserisci(T data); //inserisce un elemento in coda
+    void inserisci(Node<T> *toAdd); //inserisce un nodo in coda
+    void cancella();    //elimina l'elemento in testa
 
-        if (size == 0) {
-            //coda vuota
-            head = toAdd;
-            tail = toAdd;
-        } else {
-            //coda con n>0 elementi
-            tail->next = toAdd;
-            tail = toAdd;
-        }
+    bool isEmpty();
+    void stampaCoda();  //stampa valori ed indirizzi della coda (funzione di test)
+    void stampaValori();    //stampa i valori nella coda in ordine
 
-        size++;
-    }
-
-    void inserisci(Node<T> *toAdd) {
-        if (size == 0) {
-            //coda vuota
-            head = toAdd;
-            tail = toAdd;
-        } else {
-            //coda con n>0 elementi
-            getTail()->next = toAdd;
-            tail = toAdd;
-        }
-
-        size++;
-    }
-
-    //elimina l'elemento in testa
-    void cancella() {
-        if (isEmpty() == true) {
-            cout << "La coda e vuota!" << endl;
-            return;
-        }
-
-        Node<T> *toDelete = head;
-        head = head->next;
-        size--;
-
-        delete toDelete;
-    }
-
-    bool isEmpty() {
-        if (size == 0)
-            return true;
-        else
-            return false;
-    }
-
-    //stampa valori ed indirizzi della coda
-    void stampaCoda() {
-        Node<T> *toPrint = head;
-
-        for (int i = 0; i < size; i++) {
-            cout << i << " - " << "Value: " << toPrint->data << "\tAddress: "
-                 << toPrint << "\tNext: " << toPrint->next << endl;
-
-            toPrint = toPrint->next;
-        }
-
-        cout << "---" << endl;
-
-        delete toPrint;
-    }
-
-    //stampa i valori nella coda in ordine
-    void stampaValori() {
-        Node<T> *toPrint = head;
-
-        for (int i = 0; i < size; i++) {
-            cout << toPrint->data << " ";
-            toPrint = toPrint->next;
-        }
-
-        cout << "\n---" << endl;
-
-        delete toPrint;
-    }
-
-    int getSize() {
-        return size;
-    }
-
-    Node<T> *getHead() {
-        return head;
-    }
-
-    Node<T> *getTail() {
-        return tail;
-    }
+    int getSize();
+    Node<T> *getHead();
+    Node<T> *getTail();
 
 private:
     Node<T> *head;
@@ -140,4 +45,4 @@ private:
     int size;
 };
 
-#endif //CODAPTR_QUEUE_H
+#endif //QUEUE_QUEUE_H
