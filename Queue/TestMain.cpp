@@ -1,5 +1,4 @@
 #include "Queue.h"
-#include "Queue.cpp"
 
 using namespace std;
 

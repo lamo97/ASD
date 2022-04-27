@@ -3,4 +3,4 @@ project(Graph)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Graph main.cpp Graph.h LinkedList.h Queue.h)
+add_executable(Graph TestMain.cpp Graph.h LinkedList.h Queue.h)
