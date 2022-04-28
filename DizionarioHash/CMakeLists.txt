@@ -3,4 +3,4 @@ project(DizionarioHash)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(DizionarioHash main.cpp Dizionario.h LinkedList.h)
+add_executable(DizionarioHash TestMain.cpp Dizionario.h LinkedList.h)
